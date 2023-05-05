@@ -1,0 +1,9 @@
+services:
+  pmm:
+    image: percona/pmm-server:2
+    restart: unless-stopped
+    ports:
+      - 8080:80
+      - 10443:443
+    volumes:
+      - "./srv:/srv"
