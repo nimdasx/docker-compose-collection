@@ -1,0 +1,11 @@
+services:
+  ps:
+    image: percona/percona-server:8.0
+    restart: unless-stopped
+    ports:
+      - 2398:3306
+    volumes:
+      - "./docker.cnf:/etc/my.cnf.d/docker.cnf"
+      - "./mysql:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=lksad7yehdgfg
