@@ -1,0 +1,28 @@
+services:
+  web:
+    image: odoo:16
+    restart: unless-stopped
+    ports:
+      - 6916:8069
+    depends_on:
+      - db
+    volumes:
+      - ./etcodoo:/etc/odoo
+      - ./mntextraaddons:/mnt/extra-addons
+      - ./varlibodoo:/var/lib/odoo
+    environment:
+      - HOST=db
+      - USER=odoo16
+      - PASSWORD=sr3rgdg6j
+    
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    ports:
+      - 5416:5432
+    volumes:
+      - ./varlibpostgresqldata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=odoo16
+      - POSTGRES_PASSWORD=sr3rgdg6j
+      - POSTGRES_DB=postgres
