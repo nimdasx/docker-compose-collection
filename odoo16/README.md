@@ -14,3 +14,4 @@
 tambahkan ini di bagian volume  
 `- ./enterprise:/enterprise`
 4. docker compose up -d
+5. aktivkan develop mode, update app dan update app list
