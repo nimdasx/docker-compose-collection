@@ -10,6 +10,7 @@ services:
       - ./etcodoo:/etc/odoo
       - ./mntextraaddons:/mnt/extra-addons
       - ./varlibodoo:/var/lib/odoo
+      - ./enterprise:/enterprise
     environment:
       - HOST=db
       - USER=odoo16
