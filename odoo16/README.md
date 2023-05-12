@@ -21,3 +21,7 @@ tambahkan ini di bagian volume
 `- ./enterprise:/enterprise`
 4. docker compose up -d
 5. aktivkan develop mode, update app dan update app list
+
+## catatan
+per 12 mei 2023, ada error sewaktu menggunakan postgres:15-alphine, ganti postgres:14 berhasil  
+`Database creation error: realtion "ir_model" dost not exist LINE 1:SELECT *,name->>'en_US' AS name FROM ir_model WHERE satate = ...^`
