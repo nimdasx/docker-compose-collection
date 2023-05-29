@@ -1,7 +1,8 @@
 http:
   routers:
     er-secure:
-      entryPoints: websecure
+      entryPoints: 
+        - websecure
       rule: Host(`xx.xx.xx.xx`)
       service: er
       tls:
