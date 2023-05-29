@@ -3,7 +3,7 @@ http:
     er-secure:
       entryPoints: 
         - websecure
-      rule: Host(`xx.xx.xx.xx`)
+      rule: Host(`xxx.xxx.xxx`)
       service: er
       tls:
         certresolver: myresolver

@@ -1,0 +1,17 @@
+http:
+  routers:
+    traefik-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`xxx.xxx.xxx`)
+      service: api@internal
+      middlewares:
+        - auth
+      tls:
+        certresolver: myresolver
+  middlewares:
+    auth:
+      basicAuth:
+        users:
+#Add your admin user & password here, generate e.g. using https://wtools.io/generate-htpasswd-online
+          - admin:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
