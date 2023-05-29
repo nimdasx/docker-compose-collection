@@ -1,0 +1,27 @@
+api:
+  insecure: true
+
+providers:
+  docker:
+    exposedbydefault: false
+  file:
+    directory: /etc/traefik/dynamic
+
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  websecure:
+    address: :443
+
+certificatesresolvers:
+  myresolver:
+    acme:
+      tlschallenge: true
+      email: nimdasx@gmail.com
+      storage: /letsencrypt/acme.json

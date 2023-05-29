@@ -1,0 +1,14 @@
+http:
+  routers:
+    er-secure:
+      entryPoints: websecure
+      rule: Host(`xx.xx.xx.xx`)
+      service: er
+      tls:
+        certresolver: myresolver
+
+  services:
+    er:
+      loadBalancer:
+        servers:
+          - url: "http://202.202.202.202:8016/"
