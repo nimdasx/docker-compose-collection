@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Asia/Jakarta
+      #https://www.plex.tv/claim/
       - PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxx
     #network_mode: host
     ports:
