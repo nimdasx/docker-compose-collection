@@ -1,0 +1,23 @@
+services:
+  semaphore:
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    image: semaphoreui/semaphore:latest
+    #volumes:
+      #- /home/dev/ansible:/playbook
+    environment:
+      SEMAPHORE_DB_USER: aaa
+      SEMAPHORE_DB_PASS: bbb 
+      SEMAPHORE_DB_HOST: ccc.ddd.eee.fff
+      SEMAPHORE_DB_PORT: 3306
+      SEMAPHORE_DB_DIALECT: mysql
+      SEMAPHORE_DB: ggg
+      SEMAPHORE_PLAYBOOK_PATH: /playbook
+      SEMAPHORE_ADMIN_PASSWORD: hhh
+      SEMAPHORE_ADMIN_NAME: iii
+      SEMAPHORE_ADMIN_EMAIL: jjj@kkk.com
+      SEMAPHORE_ADMIN: lll
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: mmmmm # head -c32 /dev/urandom | base64
+      SEMAPHORE_LDAP_ACTIVATED: 'no' # if you wish to use ldap, set to: 'yes'
+      ANSIBLE_HOST_KEY_CHECKING: False
