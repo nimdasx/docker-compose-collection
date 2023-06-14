@@ -1,0 +1,14 @@
+services:
+  scheckmk:
+    image: checkmk/check-mk-raw
+    volumes:
+      - "./omd-sites:/omd/sites"
+      - "/etc/localtime:/etc/localtime:ro"
+    restart: unless-stopped
+    ports:
+      - target: 5000
+        published: 5500
+        protocol: tcp
+      - target: 8000
+        published: 8800
+        protocol: tcp
