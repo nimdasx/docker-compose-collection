@@ -1,0 +1,18 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql8
+    ports:
+      - 3306:3306
+    volumes:
+      - ./var-lib-mysql:/var/lib/mysql
+      - ./gundul.cnf:/etc/mysql/conf.d/gundul.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=xxxxxxx
+    restart: unless-stopped
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true

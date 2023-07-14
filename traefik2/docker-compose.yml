@@ -10,3 +10,9 @@ services:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./etc-traefik:/etc/traefik"
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true
