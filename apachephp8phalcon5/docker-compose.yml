@@ -1,0 +1,21 @@
+services:
+  php7phalcon3:
+    image: nimdasx/apache-php8-phalcon5
+    container_name: apachephp8phalcon5
+    restart: unless-stopped
+    #ports:
+      #- 8080:80
+    volumes:
+      - ./var-www-html:/var/www/html
+      - ./php-telo.ini:/usr/local/etc/php/conf.d/php-telo.ini
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.a85.rule=Host(`xxx.xxx`)"
+      - "traefik.http.routers.a85.entrypoints=websecure"
+      - "traefik.http.routers.a85.tls.certresolver=myresolver"
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true
