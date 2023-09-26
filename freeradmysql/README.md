@@ -2,7 +2,7 @@
 
 Freeradius dan Mysql
 
-catatan how to run, stop, enter container,dll disini :  
+catatan how to run, stop, enter container, dll disini :  
 https://github.com/nimdasx/docker-compose-collection/blob/main/README.md
 
 ## Instalasi
@@ -11,9 +11,7 @@ https://github.com/nimdasx/docker-compose-collection/blob/main/README.md
     - docker-compose.yml
     - freeradius/mods-enabled/sql
 
-2. buat database dengan nama `radius`, jangan lupa jalankan dulu containernya  
-
-3. import `schema.sql` ke database  
+2. buat database dengan nama `radius`, dan import `schema.sql` ke database, jangan lupa jalankan dulu containernya  
 
 jika mau menghilangkan debugging, comment tulisan `command: freeradius -X` di file `docker-compose.yml`
 
