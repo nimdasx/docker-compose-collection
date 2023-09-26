@@ -1,8 +1,8 @@
-# freeradmysql
+# FreeRadMysql
 
-freeradius dan mysql
+Freeradius dan Mysql
 
-## instalasi
+## Instalasi
 
 download/kopi folder freeradmysql ini  
 
@@ -14,7 +14,7 @@ buat database dengan nama radius
 
 import schema.sql ke database radius  
 
-## catatan
+## Catatan
 
 jalankan docker dengan perintah  
 ```
@@ -38,7 +38,7 @@ docker logs -f freeradmysql-freeradius-1
 
 jika mau menghilangkan debugging, comment tulisan *command: freeradius -X* di file docker-compose.yml
 
-## check request 
+## How to Check Request 
 
 buat user di database  
 ```
@@ -57,6 +57,6 @@ radtest kira yamato 127.0.0.1 0 testing123
 
 jika hasilnya Received Access-Accept artinya auth via db berhasil
 
-## source ##
+## Source
 https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu  
 https://hub.docker.com/r/freeradius/freeradius-server
