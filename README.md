@@ -22,3 +22,9 @@ masuk ke container
 
 eksekusi perintah di container tanpa masuk ke container  
 `docker exec -it <nama kontainer> <perintah>`  
+
+kopi file dari dalam kontainer keluar  
+`docker cp <nama kontainer>:<path folder/file didalam kontainer> <path folder/file diluar>`  
+
+kopi file dari luar ke dalam kontainer  
+`docker cp <path folder/file diluar> <nama kontainer>:<path folder/file didalam kontainer>`  
