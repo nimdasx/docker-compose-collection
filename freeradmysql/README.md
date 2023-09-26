@@ -4,6 +4,8 @@ freeradius dan mysql
 
 ## instalasi
 
+download/kopi folder freeradmysql ini  
+
 untuk keamanan, ganti dulu password mysql yang ada di :  
 - docker-compose.yml
 - freeradius/mods-enabled/sql
