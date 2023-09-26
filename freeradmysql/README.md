@@ -2,58 +2,28 @@
 
 Freeradius dan Mysql
 
+catatan how to run, stop, enter container disini :  
+https://github.com/nimdasx/docker-compose-collection/blob/main/README.md
+
 ## Instalasi
 
-download/kopi folder freeradmysql ini  
+1. download/kopi folder freeradmysql ini, dan untuk keamanan, ganti password mysql yang ada di :  
+    - docker-compose.yml
+    - freeradius/mods-enabled/sql
 
-untuk keamanan, ganti dulu password mysql yang ada di :  
-- docker-compose.yml
-- freeradius/mods-enabled/sql
+2. buat database dengan nama radius, jangan lupa jalankan dulu containernya  
 
-buat database dengan nama radius  
+3. import schema.sql ke database radius  
 
-import schema.sql ke database radius  
+jika mau menghilangkan debugging, comment tulisan `command: freeradius -X` di file docker-compose.yml
 
-## Catatan
+## How to Check Request
 
-jalankan docker dengan perintah  
-```
-docker compose up -d
-```
+1. buat user di database  
+    `insert into radcheck (username,attribute,op,value) values("kira", "Cleartext-Password", ":=", "yamato");`
 
-stop docker dengan perintah  
-```
-docker compose down
-```
-
-menjalankan tanpa ke background  
-```
-docker compose up
-```
-
-cek log   
-```
-docker logs -f freeradmysql-freeradius-1
-```
-
-jika mau menghilangkan debugging, comment tulisan *command: freeradius -X* di file docker-compose.yml
-
-## How to Check Request 
-
-buat user di database  
-```
-insert into radcheck (username,attribute,op,value) values("kira", "Cleartext-Password", ":=", "yamato");
-```
-
-masuk ke container  
-```
-docker exec -it freeradmysql-freeradius-1 bash
-```
-
-jalankan perintah  
-```
-radtest kira yamato 127.0.0.1 0 testing123
-```
+2. jalankan perintah ini di container freeradius  
+    `radtest kira yamato 127.0.0.1 0 testing123`
 
 jika hasilnya Received Access-Accept artinya auth via db berhasil
 
