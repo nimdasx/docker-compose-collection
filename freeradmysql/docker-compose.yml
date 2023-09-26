@@ -1,0 +1,29 @@
+services:
+  freeradius:
+    image: freeradius/freeradius-server:3.2.3
+    #container_name: freeradius
+    command: freeradius -X
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    volumes:
+      - ./freeradius/clients.conf:/etc/raddb/clients.conf
+      - ./freeradius/authorize:/etc/raddb/mods-config/files/authorize
+      - ./freeradius/mods-enabled/sql:/etc/raddb/mods-enabled/sql
+      - ./freeradius/sites-available/default:/etc/raddb/sites-available/default
+      - ./freeradius/sites-available/inner-tunnel:/etc/raddb/sites-available/inner-tunnel
+    restart: unless-stopped
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    #container_name: mysql80
+    ports:
+      - 3308:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/gundul.cnf:/etc/mysql/conf.d/gundul.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=lwd78yhsjfgk
+    restart: unless-stopped
+

@@ -1,0 +1,7 @@
+[mysqld]
+skip-host-cache
+skip-name-resolve
+sql-mode=
+#default-time-zone='+07:00'
+innodb_log_file_size = 256M
+innodb_strict_mode = 0
