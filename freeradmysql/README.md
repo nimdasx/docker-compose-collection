@@ -21,10 +21,22 @@ jalankan docker dengan perintah
 docker compose up -d
 ```
 
+stop docker dengan perintah  
+```
+docker compose down
+```
+
+menjalankan tanpa ke background  
+```
+docker compose up
+```
+
 cek log   
 ```
 docker logs -f freeradmysql-freeradius-1
 ```
+
+jika mau menghilangkan debugging, comment tulisan command: freeradius -X di file docker-compose.yml
 
 ## check request 
 
