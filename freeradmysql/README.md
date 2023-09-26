@@ -36,7 +36,7 @@ cek log
 docker logs -f freeradmysql-freeradius-1
 ```
 
-jika mau menghilangkan debugging, comment tulisan command: freeradius -X di file docker-compose.yml
+jika mau menghilangkan debugging, comment tulisan *command: freeradius -X* di file docker-compose.yml
 
 ## check request 
 
@@ -56,3 +56,7 @@ radtest kira yamato 127.0.0.1 0 testing123
 ```
 
 jika hasilnya Received Access-Accept artinya auth via db berhasil
+
+## source ##
+https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu  
+https://hub.docker.com/r/freeradius/freeradius-server
