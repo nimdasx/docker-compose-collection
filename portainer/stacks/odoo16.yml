@@ -1,0 +1,36 @@
+services:
+  
+  odoo:
+    image: odoo:16
+    restart: unless-stopped
+    ports:
+      - 2001:8069
+    depends_on:
+      - db
+    volumes:
+      - odoo-etc-odoo:/etc/odoo
+      - odoo-mnt-extra-addons:/mnt/extra-addons
+      - odoo-var-lib-odoo:/var/lib/odoo
+      # - ./enterprise:/enterprise
+    environment:
+      - HOST=db
+      - USER=odoo16
+      - PASSWORD=sr3rgdg6j
+    
+  db:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 2002:5432
+    volumes:
+      - db-var-lib-postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=odoo16
+      - POSTGRES_PASSWORD=sr3rgdg6j
+      - POSTGRES_DB=postgres
+
+volumes:
+  odoo-etc-odoo:
+  odoo-var-lib-odoo:
+  odoo-mnt-extra-addons:
+  db-var-lib-postgresql-data:
