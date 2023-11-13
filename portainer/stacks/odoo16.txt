@@ -4,17 +4,27 @@ download zip enterprise
 upload ke volume mnt/extra/addons
 extract
 
-edit /etc/odoo/odoo.conf
+edit /etc/odoo/odoo.conf :
 addons_path = /mnt/extra-addons/enterprise-16.0
-; jika mau pakai ssl
+
+jika mau pakai ssl :
+edit /etc/odoo/odoo.conf
 web_base_url_freeze = True
 proxy_mode = True
 
-pakai traefik ya untuk ssl-nya
-atau pakai nginx proxy manager, tambahkan advanced config di host > proxy hosts > edit > advanced
+configure ssl nginx proxy manager :
+tambahkan advanced config di host > proxy hosts > edit > advanced
 proxy_redirect http://yourdomain/ https://yourdomain/; 
-agar sewaktu konfigure website bisa menggunakan nama domain,
-karena kalau gak pakai ini, terjadi mixed content http tanpa s yang mengakibatkan diblokir sama browser
+
+configure ssl pakai traefik :
+lihat caranya di /portainer/stacks/traefik2.yml atau /traefik2/*
+
+jika masih problem ssl-nya terutama sewaktu konfigure website : 
+aktifkan debug mode, terus ke settings > technical > system parameters
+web.base.url = http://yourdomain
+web.base.url.freeze = True
+
+problem sewaktu konfigure website adalah terjadi mixed content http tanpa s yang mengakibatkan diblokir sama browser
 
 restart container
 
