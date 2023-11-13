@@ -9,4 +9,7 @@ addons_path = /mnt/extra-addons,/mnt/extra/addons/enterprise-16.0
 web_base_url_freeze = True
 proxy_mode = True
 
+pakai traefik ya untuk ssl-nya
+
 restart container
+

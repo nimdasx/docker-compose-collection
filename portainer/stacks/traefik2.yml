@@ -1,7 +1,7 @@
 
 services:
 
-  traefik:
+  traefik2:
     image: "traefik:v2.10"
     restart: unless-stopped
     ports:
