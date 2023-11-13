@@ -12,7 +12,7 @@ services:
       - mnt-extra-addons:/mnt/extra-addons
       - var-lib-odoo:/var/lib/odoo
     environment:
-      - HOST=db
+      - HOST=postgres14
       - USER=odoo16
       - PASSWORD=sr3rgdg6j
     networks:
