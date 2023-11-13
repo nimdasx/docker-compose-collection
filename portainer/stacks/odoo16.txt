@@ -1,9 +1,12 @@
 jalankan stack
+
 download zip enterprise
 upload ke volume mnt/extra/addons
 extract
-edit /etc/odoo/odoo.conf
-tambahkan /mnt/extra/addons/enterprise-16.0
-restart container
 
-setup cloudflare zerotrust tunnel
+edit /etc/odoo/odoo.conf
+addons_path = /mnt/extra-addons,/mnt/extra/addons/enterprise-16.0
+web_base_url_freeze = True
+proxy_mode = True
+
+restart container
