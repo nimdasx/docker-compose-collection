@@ -5,7 +5,7 @@ upload ke volume mnt/extra/addons
 extract
 
 edit /etc/odoo/odoo.conf
-addons_path = /mnt/extra-addons,/mnt/extra/addons/enterprise-16.0
+addons_path = /mnt/extra-addons/enterprise-16.0
 ; jika mau pakai ssl
 web_base_url_freeze = True
 proxy_mode = True
