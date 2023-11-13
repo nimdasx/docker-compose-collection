@@ -24,7 +24,7 @@ aktifkan debug mode, terus ke settings > technical > system parameters
 web.base.url = http://yourdomain
 web.base.url.freeze = True
 
-problem sewaktu konfigure website adalah terjadi mixed content http tanpa s yang mengakibatkan diblokir sama browser
+problem konfigure website via ssl gak ngeload halamannya adalah karena terjadi mixed content https dengan http yang diblokir browser
 
 restart container
 
