@@ -8,8 +8,8 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - nginxpm-data:/data
-      - nginxpm-letsencrypt:/etc/letsencrypt
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
     networks:
       - hub
 
