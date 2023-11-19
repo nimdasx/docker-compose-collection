@@ -1,0 +1,22 @@
+services:
+
+  mpu-api:
+    image: nimdasx/nginx-php8-phalcon5
+    restart: unless-stopped
+    ports:
+      - 10012:80
+    volumes:
+      - ./vhost.conf:/opt/docker/etc/nginx/vhost.conf
+      - ./php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - ./app:/app
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.apimpu.rule=Host(`api-mpu.xxx`)"
+      - "traefik.http.routers.apimpu.entrypoints=websecure"
+      - "traefik.http.routers.apimpu.tls.certresolver=letsencrypttls"
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true
