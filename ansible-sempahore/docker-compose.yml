@@ -1,23 +1,37 @@
 services:
-  semaphore:
+
+  ansiblemysql:
+    image: mysql:8
+    ports:
+      #- 3306:3306
+    volumes:
+      - ./var-lib-mysql:/var/lib/mysql
+      - ./gundul.cnf:/etc/mysql/conf.d/gundul.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=sapiermansarungan
+    restart: unless-stopped
+
+  ansiblesemaphore:
     restart: unless-stopped
     ports:
       - 3000:3000
+    depends_on:
+      - ansiblemysql
     image: semaphoreui/semaphore:latest
     #volumes:
       #- /home/dev/ansible:/playbook
     environment:
-      SEMAPHORE_DB_USER: aaa
-      SEMAPHORE_DB_PASS: bbb 
-      SEMAPHORE_DB_HOST: ccc.ddd.eee.fff
+      SEMAPHORE_DB_USER: root
+      SEMAPHORE_DB_PASS: sapiermansarungan 
+      SEMAPHORE_DB_HOST: ansiblemysql
       SEMAPHORE_DB_PORT: 3306
       SEMAPHORE_DB_DIALECT: mysql
-      SEMAPHORE_DB: ggg
+      SEMAPHORE_DB: ansiblexyz
       SEMAPHORE_PLAYBOOK_PATH: /playbook
-      SEMAPHORE_ADMIN_PASSWORD: hhh
-      SEMAPHORE_ADMIN_NAME: iii
-      SEMAPHORE_ADMIN_EMAIL: jjj@kkk.com
-      SEMAPHORE_ADMIN: lll
+      SEMAPHORE_ADMIN_PASSWORD: kdy3hDSF3uf
+      SEMAPHORE_ADMIN_NAME: fadhli
+      SEMAPHORE_ADMIN_EMAIL: fadhli@daswir.web.id
+      SEMAPHORE_ADMIN: daswir
       SEMAPHORE_ACCESS_KEY_ENCRYPTION: mmmmm # head -c32 /dev/urandom | base64
       SEMAPHORE_LDAP_ACTIVATED: 'no' # if you wish to use ldap, set to: 'yes'
       ANSIBLE_HOST_KEY_CHECKING: False
