@@ -1,0 +1,9 @@
+services:
+  web:
+    image: nimdasx/sf-php-5
+    restart: unless-stopped
+    ports:
+      - 3749:80
+    volumes:
+      - ./php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - ./html:/var/www/html
