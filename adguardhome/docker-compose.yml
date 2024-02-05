@@ -1,0 +1,21 @@
+services:
+
+  adguardxxx:
+    container_name: adguard
+    image: adguard/adguardhome:latest
+    restart: unless-stopped
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+    networks:
+      - hub
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adguardfatih.entrypoints=websecure"
+      - "traefik.http.routers.adguardfatih.rule=Host(`qqq.www.eee.rrr`)"
+      - "traefik.http.routers.adguardfatih.tls.certresolver=letsencrypttls"
+      - "traefik.http.services.adguardhomesdefdaxxdasif9usafjsf.loadbalancer.server.port=80"
+
+networks:
+  hub:
+    external: true
