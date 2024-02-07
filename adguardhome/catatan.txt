@@ -1,0 +1,9 @@
+
+modif konfig-e dadi iki
+
+dns:
+  trusted_proxies:
+    - masukkan.ip.address.proxy.mu/32
+tls:
+  enabled: true
+  allow_unencrypted_doh: true
