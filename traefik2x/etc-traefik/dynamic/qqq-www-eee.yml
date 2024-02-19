@@ -1,0 +1,21 @@
+http:
+  routers:
+    router-qqq-secure:
+      entryPoints:
+        - xwebsecure
+      rule: Host(`qqq.www.eee`) || Host(`a.b.c`)
+      service: service-qqq
+      tls:
+        certresolver: xcertresolvers
+    router-qqq:
+      entryPoints:
+        - xweb
+      rule: Host(`qqq.www.eee`) || Host(`a.b.c`)
+      service: service-qqq
+      middlewares:
+        - middleware-https
+  services:
+    service-qqq:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.34.13:8083/"

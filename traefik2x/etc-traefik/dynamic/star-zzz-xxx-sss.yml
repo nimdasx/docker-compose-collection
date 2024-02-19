@@ -1,0 +1,12 @@
+http:
+  routers:
+    router-zzz:
+      entryPoints:
+        - xweb
+      rule: HostRegexp(`{subdomain:[a-z]+}.zzz.xxx.sss`)
+      service: service-zzz
+  services:
+    service-zzz:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.49.73:8017/"

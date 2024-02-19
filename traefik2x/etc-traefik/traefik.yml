@@ -1,0 +1,31 @@
+api:
+  insecure: true
+
+#log:
+#  level: DEBUG
+#  filePath: "/var/log/traefik.log"
+
+providers:
+  docker:
+    exposedbydefault: false
+  file:
+    directory: /etc/traefik/dynamic
+
+entryPoints:
+  xweb:
+    address: :80
+#    http:
+#      redirections:
+#        entryPoint:
+#          to: xwebsecure
+#          scheme: https
+#          permanent: true
+  xwebsecure:
+    address: :443
+
+certificatesresolvers:
+  xcertresolver:
+    acme:
+      tlschallenge: true
+      email: xxx@xxx.xxx
+      storage: /letsencrypt/acme.json
