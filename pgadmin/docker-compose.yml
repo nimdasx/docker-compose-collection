@@ -1,0 +1,20 @@
+ervices:
+  pgadmin:
+    image: dpage/pgadmin4
+    #container_name: pgadmin4_container
+    restart: unless-stopped
+    ports:
+      - "3717:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: strike@sofy.web.id
+      PGADMIN_DEFAULT_PASSWORD: 3kfu8dfjk
+    volumes:
+      - var-lib-pgadmin:/var/lib/pgadmin
+#      - ./config_local.py:/pgadmin4/config_local.py
+#      - ./servers.json:/pgadmin4/servers.json
+#      - ./preferences.json:/pgadmin4/preferences.json
+#      - ./server.cert:/certs/server.cert
+#      - ./server.key:/certs/server.key
+
+volumes:
+  var-lib-pgadmin:
