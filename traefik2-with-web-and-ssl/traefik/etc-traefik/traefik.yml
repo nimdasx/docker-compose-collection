@@ -1,0 +1,33 @@
+api:
+  insecure: true
+
+#log:
+#  level: DEBUG
+#  filePath: "/var/log/traefik.log"
+
+providers:
+  docker:
+    exposedbydefault: false
+  file:
+    directory: /etc/traefik/dynamic
+
+entryPoints:
+  entrypoint-web:
+    address: :80
+# ini diaktifkan kalau mau semua request ke port 80 dilempar langsung ke 443 tanpa perlu mendefisikan router di masing-masing service
+#    http:
+#      redirections:
+#        entryPoint:
+#          to: entripointwebsecure
+#          scheme: https
+#          permanent: true
+  entrypoint-websecure:
+    address: :443
+
+certificatesresolvers:
+  certresolver-acme:
+    acme:
+      tlschallenge: true
+      email: abc@def.example
+      storage: /etc/traefik/acme.json
+

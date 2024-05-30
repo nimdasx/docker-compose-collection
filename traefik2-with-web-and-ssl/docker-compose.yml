@@ -1,0 +1,61 @@
+
+services:
+
+  traefik:
+    image: "traefik:v2.11"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./traefik/etc-traefik:/etc/traefik"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - hub
+
+  atgov-api:
+    image: nimdasx/nginx-php7-phalcon4
+    restart: unless-stopped
+    ports:
+      - 1190:80
+    #ports:
+      #- 10001:80
+    volumes:
+      - ./atgov-api/vhost.conf:/opt/docker/etc/nginx/vhost.conf
+      - ./atgov-api/php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - /opt/atgov-api/app:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.router-atgov-api.rule=Host(`abc.def.example`)"
+      - "traefik.http.routers.router-atgov-api.entrypoints=entrypoint-web"
+      - "traefik.http.routers.router-atgov-api.middlewares=middleware-https@file"
+      - "traefik.http.routers.router-atgov-api-secure.rule=Host(`abc.def.example`)"
+      - "traefik.http.routers.router-atgov-api-secure.entrypoints=entrypoint-websecure"
+      - "traefik.http.routers.router-atgov-api-secure.tls.certresolver=certresolver-acme"
+    networks:
+      - hub
+
+  atgov-fw:
+    image: nimdasx/nginx-php7-phalcon4
+    restart: unless-stopped
+    #ports:
+      #- 10002:80
+    volumes:
+      - ./atgov-fw/vhost.conf:/opt/docker/etc/nginx/vhost.conf
+      - ./atgov-fw/php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - /opt/atgov-fw/app:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.router-atgov-fw.rule=Host(`qwe.asd.example`)"
+      - "traefik.http.routers.router-atgov-fw.entrypoints=entrypoint-web"
+      - "traefik.http.routers.router-atgov-fw.middlewares=middleware-https@file"
+      - "traefik.http.routers.router-atgov-fw-secure.rule=Host(`qwe.asd.example`)"
+      - "traefik.http.routers.router-atgov-fw-secure.entrypoints=entrypoint-websecure"
+      - "traefik.http.routers.router-atgov-fw-secure.tls.certresolver=certresolver-acme"
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true
+

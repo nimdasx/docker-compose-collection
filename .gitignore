@@ -1,0 +1,10 @@
+/.fleet
+/.idea
+/.phalcon
+/.settings
+/.vscode
+/.buildpath
+/.projec
+/.project
+/nbproject
+**/.DS_Store

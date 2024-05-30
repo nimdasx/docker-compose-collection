@@ -1,0 +1,25 @@
+http:
+  routers:
+    router-traefik-secure:
+      entryPoints:
+        - entrypoint-websecure
+      rule: Host(`traefik-abc.def.example`)
+      service: api@internal
+      middlewares:
+        - middleware-auth
+      tls:
+        certresolver: certresolver-acme
+    router-traefik:
+      entryPoints:
+        - entrypoint-web
+      rule: Host(`traefik-abc.def.example`)
+      service: api@internal
+      middlewares:
+        - middleware-auth
+  middlewares:
+    middleware-auth:
+      basicAuth:
+        users:
+          #Add your admin user & password here, generate e.g. using https://wtools.io/generate-htpasswd-online
+          - xxx:yyy
+

@@ -1,0 +1,15 @@
+http:
+  middlewares:
+    middleware-https:
+      redirectscheme:
+        scheme: https
+        permanent: true
+
+tls:
+#  options:
+#    default:
+#      minVersion: VersionTLS12
+  certificates:
+    - certFile: /etc/traefik/cert/_abc_go_id.crt
+      keyFile: /etc/traefik/cert/key_star_abc_go_id_2023.key
+
