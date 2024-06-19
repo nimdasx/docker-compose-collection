@@ -1,0 +1,45 @@
+services:
+  
+  odoo17_odoo17:
+    image: odoo:17
+    restart: unless-stopped
+    ports:
+      - 2003:8069
+    depends_on:
+      - odoo17_postgres14
+    volumes:
+      - etc-odoo:/etc/odoo
+      - mnt-extra-addons:/mnt/extra-addons
+      - var-lib-odoo:/var/lib/odoo
+      - root:/root
+    environment:
+      - HOST=odoo17_postgres14
+      - USER=odoo17
+      - PASSWORD=qqqqqqqqq
+    networks:
+      - hub
+    
+  odoo17_postgres14:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 2004:5432
+    volumes:
+      - var-lib-postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=odoo17
+      - POSTGRES_PASSWORD=qqqqqqqqq
+      - POSTGRES_DB=postgres
+    networks:
+      - hub
+
+networks:
+  hub:
+    external: true
+
+volumes:
+  etc-odoo:
+  var-lib-odoo:
+  mnt-extra-addons:
+  root:
+  var-lib-postgresql-data:
