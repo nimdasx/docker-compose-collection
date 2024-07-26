@@ -4,3 +4,4 @@ skip_name_resolve=ON
 sql_mode=
 collation_server=utf8mb4_general_ci
 event_scheduler=ON
+innodb_buffer_pool_size=1G
