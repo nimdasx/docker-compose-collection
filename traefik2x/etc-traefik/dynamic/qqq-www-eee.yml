@@ -6,7 +6,7 @@ http:
       rule: Host(`qqq.www.eee`) || Host(`a.b.c`)
       service: service-qqq
       tls:
-        certresolver: xcertresolvers
+        certresolver: xcertresolver
     router-qqq:
       entryPoints:
         - xweb

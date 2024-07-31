@@ -8,7 +8,7 @@ http:
       middlewares:
         - middleware-auth
       tls:
-        certresolver: xcertresolvers
+        certresolver: xcertresolver
     router-traefik:
       entryPoints:
         - xweb

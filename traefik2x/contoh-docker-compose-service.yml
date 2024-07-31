@@ -1,0 +1,26 @@
+services:
+  web:
+    image: nimdasx/nginx-php8-phalcon5
+    restart: unless-stopped
+    #ports:
+      #- "2800:80"
+      #- "2801:5173"
+    volumes:
+      - ./nginxphp/vhost.conf:/opt/docker/etc/nginx/vhost.conf
+      - ./nginxphp/php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - ./web:/web
+    networks:
+      - hub
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=hub"
+      - "traefik.http.routers.router-web-secure.rule=Host(`xxx.yyy.zzz`)  || Host(`www.xxx.yyy.zzz`)"
+      - "traefik.http.routers.router-web-secure.entrypoints=xwebsecure"
+      - "traefik.http.routers.router-web-secure.tls.certresolver=xcertresolver"
+      - "traefik.http.routers.router-web.rule=Host(`xxx.yyy.zzz`)  || Host(`www.xxx.yyy.zzz`)"
+      - "traefik.http.routers.router-web.entrypoints=xweb"
+      - "traefik.http.routers.router-web.middlewares=middleware-https@file"
+
+networks:
+  hub:
+    external: true
