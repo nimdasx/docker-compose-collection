@@ -1,3 +1,6 @@
+# setup pertama kali
+
+```
 #run docker
 docker compose up -d
 
@@ -26,3 +29,4 @@ DB_PASSWORD=sdFD8uhqCXPf0
 
 #check browse
 http://localhost:10020/
+```
