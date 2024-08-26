@@ -1,0 +1,11 @@
+services:
+  ztncui:
+    image: keynetworks/ztncui
+    ports:
+      - 9993:9993/udp
+      - 3443:3443
+      - 3180:3180
+    volumes:
+      - ./ztncui:/opt/key-networks/ztncui/etc
+      - ./zt1:/var/lib/zerotier-one
+    env_file: "denv"
