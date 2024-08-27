@@ -16,3 +16,6 @@ services:
       - 3478:3478/udp
       - 50000-50010:50000-50010/udp
     restart: unless-stopped
+    devices:
+      - /dev/video0:/dev/video0
+      - /dev/video1:/dev/video1
