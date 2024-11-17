@@ -1,0 +1,15 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Gundul",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "odoo18",
+            "Host": "psqlx",
+            "SSLMode": "disable",
+            "MaintenanceDB": "postgres",
+            "Password": "123",
+            "PassFile": "/pgadmin4/pgpass"
+        }
+    }
+}
