@@ -1,0 +1,20 @@
+services:
+
+  uk:
+    image: louislam/uptime-kuma:beta
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uk/app-data:/app/data
+
+  db:
+    image: mariadb:10
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/gundul.cnf:/etc/mysql/mariadb.conf.d/gundul.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=l3e9ufyghDStj
+    restart: unless-stopped
