@@ -2,6 +2,7 @@ services:
   telegraf:
     image: telegraf:latest
     hostname: telegrafx
+    restart: unless-stopped
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro  # Config Telegraf
       - ./logs:/var/log/telegraf                        # Directory log
