@@ -1,0 +1,7 @@
+services:
+  telegraf:
+    image: telegraf:latest
+    hostname: telegrafx
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro  # Config Telegraf
+      - ./logs:/var/log/telegraf                        # Directory log
