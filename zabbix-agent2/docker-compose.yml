@@ -1,8 +1,8 @@
 services:
   zabbix-agent2:
     image: zabbix/zabbix-agent2
-    ports:
-      - 10050:10050
-    volumes:
-      - ./custom.conf:/etc/zabbix/zabbix_agent2.d/plugins.d/custom.conf
+    privileged: true
     restart: unless-stopped
+    environment:
+      ZBX_HOSTNAME: tersisa
+      ZBX_ACTIVESERVERS: 192.168.0.xx
