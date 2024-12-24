@@ -1,11 +1,10 @@
-version: "3.9"
 services:
   ispyagentdvr:
     image: mekayelanik/ispyagentdvr:latest
-    container_name: ispyagentdvr
     environment:
       - PUID=1000
       - PGID=1000
+      - AGENTDVR_WEBUI_PORT=8090
       - TZ=Asia/Jakarta
     volumes:
       - ./media-xml:/AgentDVR/Media/XML
@@ -19,3 +18,4 @@ services:
     devices:
       - /dev/video0:/dev/video0
       - /dev/video1:/dev/video1
+      - /dev/media0:/dev/media0
