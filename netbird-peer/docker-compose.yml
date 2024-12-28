@@ -1,0 +1,15 @@
+services:
+  netbird:
+    image: netbirdio/netbird:0.29.4
+    hostname: devx-docker
+    environment:
+      - NB_SETUP_KEY=xqweqwesfasf
+      - NB_MANAGEMENT_URL=https://afsafsaf.dsdsgdg
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+    volumes:
+      - ./etc-netbird:/etc/netbird
+    restart: unless-stopped
+    network_mode: host
