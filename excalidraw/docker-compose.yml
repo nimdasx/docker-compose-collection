@@ -1,0 +1,8 @@
+services:
+  excalidraw:
+    image: excalidraw/excalidraw
+    ports:
+      - "5001:80"
+    #stdin_open: true
+    #tty: true
+    restart: unless-stopped
