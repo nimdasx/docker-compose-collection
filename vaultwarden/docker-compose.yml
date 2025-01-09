@@ -1,0 +1,11 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://qwe.qwe.qwe"
+      ADMIN_TOKEN: "qwe"
+    volumes:
+      - ./vw-data/:/data/
+    ports:
+      - 3880:80
