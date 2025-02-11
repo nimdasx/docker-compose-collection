@@ -1,0 +1,17 @@
+services:
+
+  xnginx:
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - 20381:80
+    volumes:
+       - ./default.conf:/etc/nginx/conf.d/default.conf
+       - ./app:/app
+
+  xphp:
+    image: nimdasx/fpm-php7-phalcon4
+    restart: unless-stopped
+    volumes:
+      - ./php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - ./app:/app
