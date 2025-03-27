@@ -1,4 +1,4 @@
-ervices:
+services:
   pgadmin:
     image: dpage/pgadmin4
     #container_name: pgadmin4_container
