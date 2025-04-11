@@ -1,5 +1,15 @@
 services:
 
+  fix-perms:
+    image: alpine
+    volumes:
+      - ./odoox-var-lib-odoo:/tmp/satu
+      - ./odoox/etc-odoo/odoo.conf:/tmp/dua
+      - ./pgadminx-var-lib-pgadmin:/tmp/tiga
+      - ./fix-perms.sh:/tmp/fix-perms.sh
+    command: sh /tmp/fix-perms.sh
+    restart: "no"
+
   odoox:
     image: odoo:18
     restart: unless-stopped
@@ -7,10 +17,11 @@ services:
       - 10022:8069
     depends_on:
       - psqlx
+      - fix-perms
     volumes:
       - ./odoox/etc-odoo:/etc/odoo
       - ./odoox/addons:/addons
-      - odoox-var-lib-odoo:/var/lib/odoo
+      - ./odoox-var-lib-odoo:/var/lib/odoo
     environment:
       - HOST=psqlx
       - USER=odoogundul
@@ -22,7 +33,7 @@ services:
     ports:
       - 10023:5432
     volumes:
-      - psqlx-var-lib-postgresql-data:/var/lib/postgresql/data
+      - ./psqlx-var-lib-postgresql-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=odoogundul
       - POSTGRES_PASSWORD=123
@@ -37,15 +48,15 @@ services:
       PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
       PGADMIN_DEFAULT_PASSWORD: 123
     volumes:
-      - pgadminx-var-lib-pgadmin:/var/lib/pgadmin
+      - ./pgadminx-var-lib-pgadmin:/var/lib/pgadmin
     configs:
      - source: servers.json
        target: /pgadmin4/servers.json
 
-volumes:
-  pgadminx-var-lib-pgadmin:
-  odoox-var-lib-odoo:
-  psqlx-var-lib-postgresql-data:
+#volumes:
+#  pgadminx-var-lib-pgadmin:
+#  odoox-var-lib-odoo:
+#  psqlx-var-lib-postgresql-data:
 
 configs:
   servers.json:
