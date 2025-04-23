@@ -1,0 +1,11 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser
+    ports:
+      - "8080:80"
+    volumes:
+      - /mnt/disk2part1:/srv
+      - ./filebrowser.db:/filebrowser.db
+      - ./.filebrowser.json:/.filebrowser.json
+#    user: "1000:1000"
+    restart: unless-stopped
