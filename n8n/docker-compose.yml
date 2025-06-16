@@ -1,0 +1,22 @@
+services:
+
+  fix-perms:
+    image: alpine
+    volumes:
+      - ./n8n_data:/tmp/satu
+      - ./fix-perms.sh:/tmp/fix-perms.sh
+    command: sh /tmp/fix-perms.sh
+    restart: "no"
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    restart: unless-stopped
+    environment:
+      - N8N_SECURE_COOKIE=false
+    depends_on:
+      fix-perms:
+        condition: service_completed_successfully
