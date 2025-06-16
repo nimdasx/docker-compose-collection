@@ -17,6 +17,7 @@ services:
     restart: unless-stopped
     environment:
       - N8N_SECURE_COOKIE=false
+      - WEBHOOK_URL=https://asfhsafhjsg.sfasfsf
     depends_on:
       fix-perms:
         condition: service_completed_successfully
