@@ -1,0 +1,55 @@
+services:
+
+  fix-perms:
+    image: alpine
+    volumes:
+      - ./pgadminx-var-lib-pgadmin:/tmp/pgadminx-var-lib-pgadmin
+      - ./fix-perms.sh:/tmp/fix-perms.sh
+    command: sh /tmp/fix-perms.sh
+    restart: "no"
+
+  psqlx:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    ports:
+      - 9372:5432
+    volumes:
+      - ./psqlx-var-lib-postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwe
+      - POSTGRES_DB=postgres
+    depends_on:
+      fix-perms:
+        condition: service_completed_successfully
+
+  pgadminx:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 8643:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
+      PGADMIN_DEFAULT_PASSWORD: qwe
+    volumes:
+      - ./pgadminx-var-lib-pgadmin:/var/lib/pgadmin
+    configs:
+     - source: servers.json
+       target: /pgadmin4/servers.json
+
+configs:
+  servers.json:
+    content: |
+      {
+        "Servers": {
+            "1": {
+                "Name": "Gundul",
+                "Group": "Servers", 
+                "Port": 5432,
+                "Username": "postgres",
+                "Host": "psqlx",
+                "SSLMode": "disable",
+                "MaintenanceDB": "postgres"
+            }
+        }
+      }
