@@ -1,0 +1,45 @@
+services:
+
+  fix-perms:
+    image: alpine
+    volumes:
+      - ./mariadb_mariadb:/tmp/satu
+      - ./fix-perms.sh:/tmp/fix-perms.sh
+    command: sh /tmp/fix-perms.sh
+    restart: "no"
+
+  mariadb:
+    image: docker.io/bitnami/mariadb:latest
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=dfkm3r9FDk2emf
+      - MARIADB_PASSWORD=mf344fkDD
+      - MARIADB_USER=bn_moodle
+      - MARIADB_DATABASE=bitnami_moodle
+      - MARIADB_CHARACTER_SET=utf8mb4
+      - MARIADB_COLLATE=utf8mb4_unicode_ci
+    volumes:
+      - ./mariadb_mariadb:/bitnami/mariadb
+    depends_on:
+      fix-perms:
+        condition: service_completed_successfully
+  moodle:
+    image: docker.io/bitnami/moodle:5.0
+    ports:
+      - 9183:8080
+      #- 443:8443
+    environment:
+      - MOODLE_DATABASE_HOST=mariadb
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER=bn_moodle
+      - MOODLE_DATABASE_NAME=bitnami_moodle
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=no
+      - MOODLE_DATABASE_PASSWORD=mf344fkDD
+    volumes:
+      - ./moodle_moodle:/bitnami/moodle
+      - ./moodle_moodledata:/bitnami/moodledata
+    depends_on:
+      - mariadb
+
