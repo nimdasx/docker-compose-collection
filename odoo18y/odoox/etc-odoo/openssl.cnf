@@ -1,0 +1,15 @@
+# This file relaxes the default security level to the most permissive setting
+# to allow connections to very old SQL Servers.
+
+openssl_conf = openssl_init
+
+[openssl_init]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+# SECLEVEL=0 allows legacy protocols, ciphers, and signature algorithms.
+# This is the lowest and most compatible security level.
+CipherString = DEFAULT@SECLEVEL=0
