@@ -1,7 +1,7 @@
 services:
 
   odoox:
-    build: ./odoox
+    image: nimdasx/odoo18-odbc
     restart: unless-stopped
     ports:
       - 10022:8069
@@ -12,16 +12,15 @@ services:
       - ./odoox/addons:/addons
       - odoox-var-lib-odoo:/var/lib/odoo
     environment:
+      - HOST=psqlx
+      - USER=odoo18
+      - PASSWORD=q
       - OPENSSL_CONF=/etc/odoo/openssl.cnf
     #entrypoint: ["bash"]
     #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo"]
     #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "upgrade_code"]
     #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "-u odoo_bud --dev all -d qwe"]
     #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "-u gpu_ztest --dev all -d gpu01"]
-    # environment:
-    #   - HOST=psqlx
-    #   - USER=odoo18
-    #   - PASSWORD=qqq
     
   psqlx:
     image: postgres:17-alpine
@@ -32,7 +31,7 @@ services:
       - psqlx-var-lib-postgresql-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=odoo18
-      - POSTGRES_PASSWORD=qqq
+      - POSTGRES_PASSWORD=q
       - POSTGRES_DB=postgres
 
   pgadminx:
@@ -42,38 +41,38 @@ services:
       - "10024:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
-      PGADMIN_DEFAULT_PASSWORD: qqq
+      PGADMIN_DEFAULT_PASSWORD: q
     volumes:
-      - ./pgadminx/servers.json:/pgadmin4/servers.json
-      - ./pgadminx/pgpass:/pgadmin4/pgpass
+      # - ./pgadminx/servers.json:/pgadmin4/servers.json
+      # - ./pgadminx/pgpass:/pgadmin4/pgpass
       - pgadminx-var-lib-pgadmin:/var/lib/pgadmin
-    # configs:
-    #   - source: pgpass
-    #     target: /pgadmin4/pgpass
-    #   - source: servers.json
-    #     target: /pgadmin4/servers.json
+    configs:
+      # - source: pgpass
+      #   target: /pgadmin4/pgpass
+      - source: servers.json
+        target: /pgadmin4/servers.json
 
 volumes:
   pgadminx-var-lib-pgadmin:
   odoox-var-lib-odoo:
   psqlx-var-lib-postgresql-data:
 
-# configs:
-#   pgpass:
-#     content: psqlx:5432:*:odoo18:qqq
-#   servers.json:
-#     content: |
-#       {
-#         "Servers": {
-#             "1": {
-#                 "Name": "Gundul",
-#                 "Group": "Servers",
-#                 "Port": 5432,
-#                 "Username": "odoo18",
-#                 "Host": "psqlx",
-#                 "SSLMode": "disable",
-#                 "MaintenanceDB": "postgres",
-#                 "PassFile": "/pgadmin4/pgpass"
-#             }
-#         }
-#       }
+configs:
+  # pgpass:
+  #   content: psqlx:5432:*:odoo18:q
+  servers.json:
+    content: |
+      {
+        "Servers": {
+            "1": {
+                "Name": "Gundul",
+                "Group": "Servers",
+                "Port": 5432,
+                "Username": "odoo18",
+                "Host": "psqlx",
+                "SSLMode": "disable",
+                "MaintenanceDB": "postgres",
+                "PassFile": "/pgadmin4/pgpass"
+            }
+        }
+      }
