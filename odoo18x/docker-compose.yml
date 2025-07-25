@@ -26,6 +26,16 @@ services:
       - HOST=psqlx
       - USER=odoogundul
       - PASSWORD=123
+    # jangan diaktifkan di production
+      - ODOO_DEV=all
+      - ODOO_DEV_MODE=all
+    #entrypoint: ["bash"]
+    #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo"]
+    #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "upgrade_code"]
+    #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "-u odoo_bud --dev all -d qwe"]
+    #entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "-u gpu_ztest --dev all -d gpu01"]
+    # Uncomment line below untuk development mode yang lebih agresif, jangan diaktifkan di production
+    entrypoint: ["/usr/bin/python3", "/usr/bin/odoo", "--dev=all"]
     
   psqlx:
     image: postgres:17-alpine
