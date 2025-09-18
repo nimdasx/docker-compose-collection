@@ -1,0 +1,79 @@
+services:
+
+  fix-perms:
+    image: alpine
+    volumes:
+      - ./odoox-var-lib-odoo:/tmp/odoox-var-lib-odoo
+      - ./odoox/etc-odoo/odoo.conf:/tmp/odoo.conf
+      - ./pgadminx-var-lib-pgadmin:/tmp/pgadminx-var-lib-pgadmin
+      - ./fix-perms.sh:/tmp/fix-perms.sh
+      - ./odoox/build/entrypoint.sh:/tmp/entrypoint.sh
+      - ./odoox/build/wait-for-psql.py:/tmp/wait-for-psql.py
+    command: sh /tmp/fix-perms.sh
+    restart: "no"
+
+  odoox:
+    #image: odoo:19
+    build: ./odoox/build
+    restart: unless-stopped
+    ports:
+      - 4571:8069
+    depends_on:
+      - psqlx
+      - fix-perms
+    volumes:
+      - ./odoox/etc-odoo:/etc/odoo
+      - ./odoox/addons:/addons
+      - ./odoox-var-lib-odoo:/var/lib/odoo
+    environment:
+      - HOST=psqlx
+      - USER=odoogundul
+      - PASSWORD=q
+    
+  psqlx:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    ports:
+      - 4572:5432
+    volumes:
+      - ./psqlx-var-lib-postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=odoogundul
+      - POSTGRES_PASSWORD=q
+      - POSTGRES_DB=postgres
+
+  pgadminx:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 4573:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
+      PGADMIN_DEFAULT_PASSWORD: q
+    volumes:
+      - ./pgadminx-var-lib-pgadmin:/var/lib/pgadmin
+    configs:
+     - source: servers.json
+       target: /pgadmin4/servers.json
+
+#volumes:
+#  pgadminx-var-lib-pgadmin:
+#  odoox-var-lib-odoo:
+#  psqlx-var-lib-postgresql-data:
+
+configs:
+  servers.json:
+    content: |
+      {
+        "Servers": {
+            "1": {
+                "Name": "Gundul",
+                "Group": "Servers", 
+                "Port": 5432,
+                "Username": "odoogundul",
+                "Host": "psqlx",
+                "SSLMode": "disable",
+                "MaintenanceDB": "postgres"
+            }
+        }
+      }
