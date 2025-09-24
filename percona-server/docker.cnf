@@ -1,4 +1,4 @@
-[mysqld]
+mysqld]
 host_cache_size=0
 skip_name_resolve=ON
 sql_mode=
@@ -9,9 +9,15 @@ slow_query_log=ON
 log_output=FILE
 long_query_time=0
 log_slow_admin_statements=ON
-log_slow_slave_statements=ON
 log_slow_rate_limit=100
 log_slow_rate_type='query'
 slow_query_log_always_write_time=1
 log_slow_verbosity='full'
 slow_query_log_use_global_control='all'
+innodb_default_row_format = DYNAMIC
+
+#wis raono iki
+#log_slow_slave_statements=ON
+
+#1118 - Row size too large (> 8126). Changing some columns to TEXT or BLOB may help. In current row format, BLOB prefix of 0 bytes is stored inline.
+innodb_strict_mode = OFF

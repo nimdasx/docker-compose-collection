@@ -8,4 +8,12 @@ services:
       - "./docker.cnf:/etc/my.cnf.d/docker.cnf"
       - "./mysql:/var/lib/mysql"
     environment:
-      - MYSQL_ROOT_PASSWORD=lksad7yehdgfg
+      - MYSQL_ROOT_PASSWORD=assasdasdasf
+  phpmyadminx:
+    image: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 2399:80
+    environment:
+      - PMA_HOST=ps
+      - UPLOAD_LIMIT=1G

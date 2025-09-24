@@ -1,0 +1,8 @@
+#sebelum up -d
+mkdir mysql
+sudo chown -R 1001.1001 mysql
+
+#catatan lain2
+mysql/percona gak ada uuid
+uuid adanya cuman di mariadb
+jadi kalau seblumnya pakai mariadb terus mau pakai mysql/percona pastikan tidak ada type field yang uuid
