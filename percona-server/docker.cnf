@@ -1,4 +1,4 @@
-mysqld]
+[mysqld]
 host_cache_size=0
 skip_name_resolve=ON
 sql_mode=
