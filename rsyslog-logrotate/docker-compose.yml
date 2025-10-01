@@ -1,0 +1,32 @@
+services:
+
+  dummyservice:
+    image: someservice
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:2193"
+        tag: "web"
+    depends_on:
+      - rsyslog
+
+  rsyslog:
+    image: rsyslog/rsyslog
+    restart: unless-stopped
+    volumes:
+      - ./logs:/logs
+      - ./rsyslog.conf:/etc/rsyslog.conf
+    ports:
+      - "2193:514/udp"
+      - "2193:514/tcp"
+
+  logrotate:
+    image: blacklabelops/logrotate
+    volumes:
+      - ./logs:/logs
+    environment:
+      LOGS_DIRECTORIES: "/logs"
+      LOGROTATE_INTERVAL: "daily"
+      LOGROTATE_COPIES: "7"
+      LOGROTATE_COMPRESSION: "compress"
+    restart: unless-stopped
