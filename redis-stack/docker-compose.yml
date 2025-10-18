@@ -1,0 +1,28 @@
+services:
+
+  # server
+  redis-stack-server:
+    image: redis/redis-stack-server
+    ports:
+      - "6379:6379"   # Redis server
+    environment:
+      - REDIS_ARGS=--requirepass qweasdzxc
+    volumes:
+      - ./redis_data:/data #chown 1000
+    restart: unless-stopped
+
+  # gui, tanpa password
+  redisinsight:
+    image: redis/redisinsight
+    ports:
+      - "5540:5540"
+    environment:
+      - RI_REDIS_HOST_01=redis-stack-server
+      - RI_REDIS_PORT_01=6379
+      - RI_REDIS_ALIAS_01=enol satu
+      - RI_REDIS_USERNAME_01=default
+      - RI_REDIS_PASSWORD_01=qweasdzxc
+    volumes:
+      - ./redisinsight_data:/data #chown 1000
+    restart: unless-stopped
+
