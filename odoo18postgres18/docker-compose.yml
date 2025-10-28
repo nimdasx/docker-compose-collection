@@ -1,0 +1,61 @@
+services:
+
+  odoox:
+    image: odoo:18
+    restart: unless-stopped
+    ports:
+      - 2871:8069
+    depends_on:
+      - psqlx
+    volumes:
+      - ./odoox/etc-odoo:/etc/odoo
+      - ./odoox/addons:/addons
+      - ./odoox/var-lib-odoo:/var/lib/odoo
+    environment:
+      - HOST=psqlx
+      - USER=odoo
+      - PASSWORD=xxx
+    
+  psqlx:
+    image: postgres:18-alpine
+    #image: postgres:18.0
+    restart: unless-stopped
+    ports:
+      - 2872:5432
+    volumes:
+      - ./psqlx-var-lib-postgresql:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=xxx
+      - POSTGRES_DB=postgres
+
+  pgadminx:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 2873:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
+      PGADMIN_DEFAULT_PASSWORD: xxx
+    volumes:
+      - ./pgadminx-var-lib-pgadmin:/var/lib/pgadmin
+    configs:
+     - source: servers.json
+       target: /pgadmin4/servers.json
+
+configs:
+  servers.json:
+    content: |
+      {
+        "Servers": {
+            "1": {
+                "Name": "Gundul Pacul",
+                "Group": "Servers", 
+                "Port": 5432,
+                "Username": "odoo",
+                "Host": "psqlx",
+                "SSLMode": "disable",
+                "MaintenanceDB": "postgres"
+            }
+        }
+      }
