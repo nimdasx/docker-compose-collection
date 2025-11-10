@@ -5,7 +5,19 @@ services:
     #network_mode: host
     ports:
       - "8096:8096"
+    #  - "8920:8920"
+    #  - "1900:1900/udp"
+    #  - "7359:7359/udp"
     volumes:
       - ./config:/config
       - ./cache:/cache
-      - /mnt:/mnt
+      - /mnt/someusbdisk:/mnt/someusbdisk
+      - somenfsmount:/mnt/somenfsmount
+  
+volumes:
+  somenfsmount:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.0.x,rw"
+      device: ":/mnt/whereveryouare"
