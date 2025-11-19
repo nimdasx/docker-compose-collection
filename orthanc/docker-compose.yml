@@ -1,0 +1,22 @@
+services:
+  orthanc:
+    image: orthancteam/orthanc:latest
+    #container_name: orthanc
+    restart: unless-stopped
+    ports:
+      - "8042:8042"   # Web UI Orthanc
+      - "4242:4242"   # DICOM
+    volumes:
+      - ./orthanc-db:/var/lib/orthanc/db
+      - ./orthanc-config.json:/etc/orthanc/orthanc.json
+
+  ohif:
+    image: ohif/viewer:latest
+    #container_name: ohif
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - APP_CONFIG=config/docker.json
+    volumes:
+      - ./ohif-config.json:/usr/share/nginx/html/config/docker.json

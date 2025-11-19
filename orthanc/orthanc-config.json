@@ -1,0 +1,20 @@
+{
+        "Name": "Orthanc-DICOMweb",
+        "StorageDirectory": "/var/lib/orthanc/db",
+        "IndexDirectory": "/var/lib/orthanc/db",
+        "DicomAet": "ORTHANC",
+        "DicomPort": 4242,
+        "HttpPort": 8042,
+        "RemoteAccessAllowed": true,
+        "AuthenticationEnabled": true,
+        "RegisteredUsers": {
+                "zgmf": "xxx"
+        },
+        "DicomWeb": {
+                "Enable": true,
+                "Root": "/dicom-web/",
+                "EnableWado": true,
+                "EnableQido": true,
+                "EnableStow": true
+        }
+}
