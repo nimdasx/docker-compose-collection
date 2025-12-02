@@ -1,0 +1,1 @@
+sudo chown 5050 pgadminx/var-lib-pgadmin

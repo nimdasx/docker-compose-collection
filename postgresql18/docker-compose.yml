@@ -1,0 +1,25 @@
+services:
+
+  psqlx:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    ports:
+      - 3410:5432
+    volumes:
+      - ./psqlx-var-lib-postgresql:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=x
+      - POSTGRES_DB=postgres
+
+  pgadminx:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 3411:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@sofy.web.id
+      PGADMIN_DEFAULT_PASSWORD: xzy
+    volumes:
+      - ./pgadminx/var-lib-pgadmin:/var/lib/pgadmin
+      - ./pgadminx/servers.json:/pgadmin4/servers.json
