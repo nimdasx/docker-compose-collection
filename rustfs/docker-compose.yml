@@ -1,4 +1,16 @@
 services:
+
+  rustfs-init:
+    image: busybox:latest
+    command: >
+      sh -c "
+      mkdir -p /data &&
+      chown 10001:10001 /data
+      "
+    volumes:
+      - ./data:/data
+    restart: "no"
+
   rustfs:
     image: rustfs/rustfs:latest
     ports:
@@ -7,8 +19,10 @@ services:
     volumes:
       - ./data:/data
     restart: unless-stopped
+    depends_on:
+      - rustfs-init
     environment:
-      RUSTFS_ACCESS_KEY: qwe
-      RUSTFS_SECRET_KEY: aasfdfdf
+      RUSTFS_ACCESS_KEY: qqq
+      RUSTFS_SECRET_KEY: xxx
       RUSTFS_CONSOLE_ENABLE: "true"
 #      RUSTFS_SERVER_DOMAINS: example.com
