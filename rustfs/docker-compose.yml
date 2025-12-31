@@ -1,0 +1,14 @@
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+    environment:
+      RUSTFS_ACCESS_KEY: qwe
+      RUSTFS_SECRET_KEY: aasfdfdf
+      RUSTFS_CONSOLE_ENABLE: "true"
+#      RUSTFS_SERVER_DOMAINS: example.com
