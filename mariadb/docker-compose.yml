@@ -1,0 +1,27 @@
+services:
+
+  mariadbx:
+    image: mariadb:11
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./gundul.cnf:/etc/mysql/mariadb.conf.d/gundul.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=jf8ehF38fkX
+    restart: unless-stopped
+    # networks:
+    #   - hub
+
+  phpmyadminx:
+    image: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 3307:80
+    environment:
+      - PMA_HOST=mariadbx
+      - UPLOAD_LIMIT=1G
+
+# networks:
+#   hub:
+#     external: true
