@@ -1,0 +1,23 @@
+services:
+  s3proxy:
+    image: andrewgaul/s3proxy:latest
+    ports:
+      - "9000:80" # Ubah port host:container sesuai kebutuhan
+    environment:
+      # S3 Proxy config
+      S3PROXY_AUTHORIZATION: "aws-v2-or-v4"    # authorization mode
+      S3PROXY_IDENTITY: "usernamekamu"           # access key
+      S3PROXY_CREDENTIAL: "passwordkamu"         # secret key
+      S3PROXY_ENDPOINT: "http://0.0.0.0:80"    # endpoint
+      S3PROXY_IGNORE_UNKNOWN_HEADERS: "true"
+      
+      # jclouds backend config
+      #JCLOUDS_PROVIDER: "filesystem"           # penyimpanan lokal, ini deprecated yaaaa
+      JCLOUDS_PROVIDER: "filesystem-nio2"
+      JCLOUDS_FILESYSTEM_BASEDIR: "/data"      # lokasi bucket dir
+        
+      # (Optional) CORS
+      S3PROXY_CORS_ALLOW_ALL: "true"
+    volumes:
+      - ./data:/data   # volume folder host untuk bucket
+    restart: unless-stopped
