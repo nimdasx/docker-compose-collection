@@ -5,10 +5,19 @@ sql-mode=
 default-time-zone='+07:00'
 # innodb_log_file_size = 256M
 # innodb_strict_mode = 0
-
-## added August 31, 2022
 # innodb_buffer_pool_size=2G
 # innodb_log_buffer_size=2G
-
-## sofyan 4 september 2022
 # event_scheduler=ON
+
+character-set-server = utf8mb4
+collation-server     = utf8mb4_general_ci
+
+# Optional tapi sangat disarankan
+#skip-character-set-client-handshake
+#init-connect='SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'
+
+[client]
+default-character-set = utf8mb4
+
+[mysql]
+default-character-set = utf8mb4
