@@ -1,0 +1,11 @@
+services:
+  smtp4dev:
+    image: rnwood/smtp4dev
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Web UI
+      - "2525:25" # SMTP
+    volumes:
+      - ./smtp4dev:/smtp4dev
+    environment:
+      TZ: Asia/Jakarta
