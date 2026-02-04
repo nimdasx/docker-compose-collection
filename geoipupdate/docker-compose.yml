@@ -1,0 +1,16 @@
+#https://github.com/maxmind/geoipupdate/blob/main/doc/docker.md
+#https://github.com/ZoeyVid/NPMplus?tab=readme-ov-file#geoblocking-example-mainly-community-support
+#https://www.maxmind.com/en/geolite2/signup
+
+services:
+  geoipupdate:
+    image: ghcr.io/maxmind/geoipupdate
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Jakarta
+      - GEOIPUPDATE_ACCOUNT_ID=XXXXXX
+      - GEOIPUPDATE_LICENSE_KEY=XXXXXXXXXXXXXXXX
+      - 'GEOIPUPDATE_EDITION_IDS=GeoLite2-ASN GeoLite2-City GeoLite2-Country'
+      - GEOIPUPDATE_FREQUENCY=72
+    volumes:
+      - './data/geoip:/usr/share/GeoIP'
