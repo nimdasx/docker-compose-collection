@@ -13,9 +13,16 @@
 #di conf.d/vhost.conf / conf.d/default.conf, di dalam server {}
     access_log /nginx-goaccess-log/access.log goaccess;
 
-#log rotate ya biar gak penuh, log rotate di host ya
+#download geoip city taruh di folder goaccess
+wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb
+
+#buat htpassword di folder goaccess
+sudo apt install apache2-utils
+htpasswd -c goaccess.htpasswd wongedan
+
+#log rotate ya biar gak penuh, log rotate di host ya, gak usah di container
 sudo vim /etc/logrotate.d/nginx-goaccess
-/home/bkd/dockerize/trapginxv2/nginx-goaccess-log/*.log {
+/lokasi-nginx-goaccess-log/*.log {
     daily
     rotate 14
     compress
@@ -27,14 +34,8 @@ sudo vim /etc/logrotate.d/nginx-goaccess
     maxsize 2G
 }
 
-#download geoip city taruh di folder goaccess
-wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb
-
-#buat htpassword di folder goaccess
-sudo apt install apache2-utils
-htpasswd -c goaccess.htpasswd wongedan
-
-
+#test logrotate tanpa menjalankan (debug), ganti -d jadi -f kalau mau menjalankan
+sudo logrotate -d /etc/logrotate.d/nginx-goaccess
 
 
 ```
