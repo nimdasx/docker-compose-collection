@@ -25,4 +25,16 @@ if ($allow_access = 0) {
     return 444;
 }
 
+##kalau renew ssl gagal karena kena blocking
+set $block_country 0;
+if ($geoip2_country_iso_code != "ID") {
+    set $block_country 1;
+}
+if ($request_uri ~ "^/\.well-known/acme-challenge/") {
+    set $block_country 0;
+}
+if ($block_country = 1) {
+    return 444;
+}
+
 ```
