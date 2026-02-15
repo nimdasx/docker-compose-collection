@@ -21,6 +21,9 @@ if ($remote_addr = "203.0.113.10") {
 if ($remote_addr = "198.51.100.25") {
     set $allow_access 1;
 }
+if ($request_uri ~ "^/\.well-known/acme-challenge/") {
+    set $allow_access 1;
+}
 if ($allow_access = 0) {
     return 444;
 }
