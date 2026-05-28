@@ -1,0 +1,28 @@
+services:
+
+  # service ini hanya contoh, sesuaikan dengan kebutuhan masing-masing
+  web:
+    image: nimdasx/nginx-php8-phalcon5
+    restart: unless-stopped
+    ports:
+      - 2189:80
+    volumes:
+      - ./docker/vhost.conf:/opt/docker/etc/nginx/vhost.conf
+      - ./docker/php-nimdasx.ini:/usr/local/etc/php/conf.d/php-nimdasx.ini
+      - ./app:/app
+
+  # ini adalah service untuk mengirimkan notifikasi ke discord jika terjadi fatal error
+  log-watcher:
+    image: docker:cli
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/log-watcher.sh:/log-watcher.sh:ro
+    entrypoint: sh -c "apk add --no-cache curl tzdata > /dev/null 2>&1 && sh /log-watcher.sh"
+    environment:
+      - DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxx/yyy
+      - WATCH_SERVICE=web
+      - APP_NAME=ABCTERSERAHDIRIMU
+      - TZ=Asia/Jakarta
+    depends_on:
+      - web
