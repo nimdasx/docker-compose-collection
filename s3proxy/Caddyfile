@@ -1,0 +1,9 @@
+:80 {
+    basic_auth {
+        # generate password pakai perintah ini
+        # docker compose run --rm caddy caddy hash-password
+        nimdasx ganti-dengan-hasil-hash-password
+    }
+
+    reverse_proxy s3webui:8080
+}

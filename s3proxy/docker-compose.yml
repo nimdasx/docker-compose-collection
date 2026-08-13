@@ -1,4 +1,27 @@
+name: ${PWD}
+
 services:
+
+  auth:
+    image: caddy:alpine
+    ports:
+      - "9001:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - s3webui
+    restart: unless-stopped
+
+  s3webui:
+    image: ghcr.io/wenisch-tech/s3webui:latest
+    #ports:
+    #  - "9001:8080"
+    environment:
+      S3_ACCESS_KEY: usernamekamu
+      S3_SECRET_KEY: passwordkamu
+      S3_ENDPOINT_URL: http://s3proxy:80
+    restart: unless-stopped
+
   s3proxy:
     image: andrewgaul/s3proxy:latest
     ports:
