@@ -1,0 +1,8 @@
+services:
+  databasement-agent:
+    image: davidcrty/databasement:latest
+    environment:
+      DATABASEMENT_URL: "https://xxx"
+      DATABASEMENT_AGENT_TOKEN: "xxx"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
